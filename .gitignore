@@ -8,3 +8,5 @@ desktop.ini
 
 # Dependencies (if any added in future)
 node_modules/
+
+.vercel

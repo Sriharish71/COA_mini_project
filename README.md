@@ -1,7 +1,19 @@
 # CPU Performance Calculator
 
 > **Computer Organization and Architecture (COA) Mini Project**  
-> A simple, clean, and interactive educational tool to calculate and understand CPU performance metrics.
+> An interactive educational tool to calculate, visualize, and understand core CPU performance metrics.
+
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Demo-black?style=for-the-badge&logo=vercel)](https://coa-mini-project.vercel.app)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Sriharish71/COA_mini_project)
+[![Tech Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20Vanilla%20JS-blue?style=for-the-badge)](https://coa-mini-project.vercel.app)
+
+---
+
+## 🌐 Live Application
+
+The project is hosted and globally distributed via Vercel Edge Network:
+
+👉 **[https://coa-mini-project.vercel.app](https://coa-mini-project.vercel.app)**
 
 ---
 
@@ -38,7 +50,7 @@ $$\text{Execution Rate} = \frac{1}{\text{CPU Execution Time}}$$
 
 ## 3. Reference Example Test Case
 
-Clicking the **Try Example** button populates the calculator with the following benchmark inputs:
+Clicking the **Try Example** button populates the calculator with standard benchmark inputs:
 
 | Parameter | Value | Unit |
 | :--- | :--- | :--- |
@@ -59,34 +71,41 @@ Clicking the **Try Example** button populates the calculator with the following 
 - **Minimalist & Clean Theme:** Light theme using slate tones, crisp rounded cards, subtle shadows, and a modern blue accent (`#2563eb`).
 - **Interactive Validation:** Inline validation warnings for negative numbers, zeros, or empty inputs without disruptive browser alert popups.
 - **Dynamic Unit Scaling:** Automatically scales CPU execution time into seconds ($s$), milliseconds ($ms$), microseconds ($\mu s$), or nanoseconds ($ns$) depending on the magnitude.
-- **Step-by-Step Substitution Walkthrough:** Shows the arithmetic steps and value substitutions to help students verify their manual assignments.
+- **Step-by-Step Substitution Walkthrough:** Shows arithmetic steps and value substitutions to help students verify manual assignments.
 - **Responsive Layout:** Optimized for desktop, tablet, and mobile screens.
-- **No External Dependencies:** Built with 100% standard HTML5, CSS3, and Vanilla JavaScript.
+- **Zero External Dependencies:** Built with 100% standard HTML5, CSS3, and Vanilla JavaScript.
 
 ---
 
 ## 5. File Structure
 
 ```text
-COA mini project/
+COA_mini_project/
+├── .gitignore       # Git exclusion rules
 ├── index.html       # Semantic HTML5 layout and accessibility attributes
-├── style.css        # Clean, modern design system, responsive styles, and animations
+├── style.css        # Clean, modern design system and responsive styles
 ├── script.js        # Form validation, calculation logic, and DOM rendering
-└── README.md        # Project documentation and theoretical background
+├── vercel.json      # Vercel deployment and routing configuration
+└── README.md        # Comprehensive project documentation
 ```
 
 ---
 
-## 6. How to Run Locally
+## 6. How to Run
 
-You can run this project instantly using any standard web browser:
+### Option A: Live Cloud Version (Recommended)
+Access the live production deployment directly in any modern browser:
+👉 **[https://coa-mini-project.vercel.app](https://coa-mini-project.vercel.app)**
 
-### Option A: Direct Browser Launch (Simplest)
-1. Navigate to the project directory: `COA mini project/`
-2. Double-click [index.html](file:///c:/Users/sriha/OneDrive/Desktop/COA%20mini%20project/index.html) (or right-click $\rightarrow$ **Open With** $\rightarrow$ Chrome, Edge, Firefox, or Safari).
+### Option B: Local Browser Launch
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/Sriharish71/COA_mini_project.git
+   cd COA_mini_project
+   ```
+2. Double-click `index.html` to open it in your browser.
 
-### Option B: Local Development Server (Optional)
-If you prefer running via a local server:
+### Option C: Local Development Server
 ```bash
 # Using Python
 python -m http.server 3000
