@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An interactive, beginner-friendly CPU Performance Calculator for Computer Organization and Architecture (COA) students. Calculate CPU execution time, clock cycles, and performance rate.">
+  <title>CPU Performance Calculator | COA Mini Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="badge">COA Mini Project</div>
+      <h1 class="title">CPU Performance Calculator</h1>
+      <p class="subtitle">Understand CPU performance through simple calculations.</p>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="main-content">
+      <!-- Calculator Card -->
+      <section class="card calculator-card" aria-labelledby="calc-heading">
+        <div class="card-header">
+          <div>
+            <h2 id="calc-heading" class="card-title">Performance Parameters</h2>
+            <p class="card-description">Enter program and hardware metrics to evaluate execution time.</p>
+          </div>
+          <button type="button" id="example-btn" class="btn btn-secondary btn-sm" title="Fill with example values">
+            <svg class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v4.59L7.3 9.24a.75.75 0 00-1.1 1.02l3.25 3.5a.75.75 0 001.1 0l3.25-3.5a.75.75 0 10-1.1-1.02l-1.95 2.1V6.75z" clip-rule="evenodd"/>
+            </svg>
+            Try Example
+          </button>
+        </div>
+
+        <form id="calculator-form" novalidate>
+          <!-- Input 1: Instruction Count -->
+          <div class="form-group" id="group-instruction-count">
+            <div class="label-row">
+              <label for="instruction-count" class="form-label">
+                Instruction Count <span class="symbol-tag">(I)</span>
+              </label>
+              <span class="field-hint">e.g. 1000000</span>
+            </div>
+            <div class="input-container">
+              <input 
+                type="number" 
+                id="instruction-count" 
+                name="instructionCount"
+                class="form-input" 
+                placeholder="e.g. 1,000,000" 
+                min="1" 
+                step="1"
+                aria-describedby="desc-instruction-count error-instruction-count"
+                required
+              >
+            </div>
+            <p id="desc-instruction-count" class="help-text">
+              Total number of machine instructions executed by the program.
+            </p>
+            <p id="error-instruction-count" class="error-message" role="alert" aria-live="polite"></p>
+          </div>
+
+          <!-- Input 2: CPI (Cycles Per Instruction) -->
+          <div class="form-group" id="group-cpi">
+            <div class="label-row">
+              <label for="cpi" class="form-label">
+                CPI (Cycles Per Instruction)
+              </label>
+              <span class="field-hint">e.g. 2.0</span>
+            </div>
+            <div class="input-container">
+              <input 
+                type="number" 
+                id="cpi" 
+                name="cpi"
+                class="form-input" 
+                placeholder="e.g. 2.0" 
+                min="0.0001" 
+                step="any"
+                aria-describedby="desc-cpi error-cpi"
+                required
+              >
+            </div>
+            <p id="desc-cpi" class="help-text">
+              Average number of clock cycles required to execute each instruction.
+            </p>
+            <p id="error-cpi" class="error-message" role="alert" aria-live="polite"></p>
+          </div>
+
+          <!-- Input 3: Clock Rate + Unit Dropdown -->
+          <div class="form-group" id="group-clock-rate">
+            <div class="label-row">
+              <label for="clock-rate" class="form-label">
+                Clock Rate <span class="symbol-tag">(f)</span>
+              </label>
+              <span class="field-hint">e.g. 2.5 GHz</span>
+            </div>
+            <div class="input-group-composite">
+              <input 
+                type="number" 
+                id="clock-rate" 
+                name="clockRate"
+                class="form-input composite-input" 
+                placeholder="e.g. 2" 
+                min="0.000001" 
+                step="any"
+                aria-describedby="desc-clock-rate error-clock-rate"
+                required
+              >
+              <select id="clock-unit" name="clockUnit" class="form-select composite-select" aria-label="Clock Rate Unit">
+                <option value="GHz" selected>GHz</option>
+                <option value="MHz">MHz</option>
+                <option value="kHz">kHz</option>
+                <option value="Hz">Hz</option>
+              </select>
+            </div>
+            <p id="desc-clock-rate" class="help-text">
+              Processor frequency representing clock cycles generated per second.
+            </p>
+            <p id="error-clock-rate" class="error-message" role="alert" aria-live="polite"></p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="button-group">
+            <button type="submit" id="calculate-btn" class="btn btn-primary">
+              <svg class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H6zm1 2a1 1 0 000 2h6a1 1 0 100-2H7zm6 7a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-3 3a1 1 0 100 2h.01a1 1 0 100-2H10zm-4 1a1 1 0 011-1h.01a1 1 0 110 2H7a1 1 0 01-1-1zm1-4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h.01a1 1 0 100-2H10zm3-3a1 1 0 100 2h.01a1 1 0 100-2H13zm-3 0a1 1 0 100 2h.01a1 1 0 100-2H10zm-3 0a1 1 0 100 2h.01a1 1 0 100-2H7z" clip-rule="evenodd"/>
+              </svg>
+              Calculate Performance
+            </button>
+            <button type="button" id="reset-btn" class="btn btn-outline">
+              <svg class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+              </svg>
+              Reset
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Results Section -->
+      <section id="results-section" class="card results-card hidden" aria-labelledby="results-heading" aria-live="polite">
+        <div class="card-header results-header">
+          <div>
+            <span class="status-indicator"></span>
+            <h2 id="results-heading" class="card-title">Calculated Results</h2>
+          </div>
+          <span class="badge badge-success">Calculation Complete</span>
+        </div>
+
+        <div class="results-grid">
+          <!-- Result 1: Primary Execution Time -->
+          <div class="result-box featured-result">
+            <div class="result-box-top">
+              <span class="result-box-label">CPU Execution Time</span>
+              <span id="unit-badge" class="unit-pill">Milliseconds (ms)</span>
+            </div>
+            <div class="result-value-wrapper">
+              <span id="res-exec-time-formatted" class="primary-metric">1 ms</span>
+            </div>
+            <div class="result-meta">
+              <span class="meta-label">Execution Time:</span>
+              <span id="res-exec-time-seconds" class="meta-value mono">0.001 seconds</span>
+            </div>
+            <div class="result-meta">
+              <span class="meta-label">Equivalent Time:</span>
+              <span id="res-exec-time-equivalent" class="meta-value">1 millisecond</span>
+            </div>
+            <p class="result-box-desc">
+              Actual time CPU spends executing this program workload.
+            </p>
+          </div>
+
+          <!-- Result 2: Total Clock Cycles -->
+          <div class="result-box">
+            <div class="result-box-top">
+              <span class="result-box-label">Total CPU Clock Cycles</span>
+              <span class="unit-pill">Cycles</span>
+            </div>
+            <div class="result-value-wrapper">
+              <span id="res-total-cycles" class="secondary-metric">2,000,000</span>
+            </div>
+            <div class="result-meta">
+              <span class="meta-label">Formula:</span>
+              <span class="meta-value mono">I × CPI</span>
+            </div>
+            <p class="result-box-desc">
+              Total processor clock ticks required to finish all instructions.
+            </p>
+          </div>
+
+          <!-- Result 3: CPU Performance / Execution Rate -->
+          <div class="result-box">
+            <div class="result-box-top">
+              <span class="result-box-label">CPU Performance</span>
+              <span class="unit-pill">Workload Rate</span>
+            </div>
+            <div class="result-value-wrapper">
+              <span id="res-perf-rate" class="secondary-metric">1,000</span>
+              <span class="metric-unit">programs/sec</span>
+            </div>
+            <div class="result-meta">
+              <span class="meta-label">Formula:</span>
+              <span class="meta-value mono">1 / Execution Time</span>
+            </div>
+            <p class="result-box-desc">
+              Program execution throughput for this hypothetical workload.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step-by-Step Mathematical Substitution Walkthrough -->
+        <div class="step-walkthrough">
+          <h3 class="walkthrough-title">Calculation Breakdown</h3>
+          <div class="walkthrough-steps">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <span class="step-label">Total Clock Cycles</span>
+                <span id="step-cycles-calc" class="step-math mono">1,000,000 × 2 = 2,000,000 cycles</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <span class="step-label">Clock Rate in Hz</span>
+                <span id="step-clock-calc" class="step-math mono">2 GHz = 2,000,000,000 Hz</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <span class="step-label">Execution Time (T)</span>
+                <span id="step-time-calc" class="step-math mono">2,000,000 / 2,000,000,000 = 0.001 s (1 ms)</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <span class="step-label">Workload Throughput</span>
+                <span id="step-rate-calc" class="step-math mono">1 / 0.001 s = 1,000 programs/sec</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Formula Explanation Section -->
+      <section class="card formula-card" aria-labelledby="formula-heading">
+        <h2 id="formula-heading" class="card-title">The CPU Performance Equation</h2>
+        
+        <div class="formula-banner">
+          <div class="formula-box">
+            <span class="formula-text">CPU Execution Time = <span class="fraction"><span class="numerator">Instruction Count × CPI</span><span class="denominator">Clock Rate</span></span></span>
+          </div>
+          <div class="formula-shorthand">
+            <span class="mono">T = (I × CPI) / f</span>
+          </div>
+        </div>
+
+        <div class="variable-grid">
+          <div class="variable-card">
+            <div class="variable-header">
+              <span class="variable-badge">I</span>
+              <h3 class="variable-name">Instruction Count</h3>
+            </div>
+            <p class="variable-desc">
+              Total number of instructions executed by a program. Determined by the algorithm, source code, compiler, and Instruction Set Architecture (ISA).
+            </p>
+          </div>
+
+          <div class="variable-card">
+            <div class="variable-header">
+              <span class="variable-badge">CPI</span>
+              <h3 class="variable-name">Cycles Per Instruction</h3>
+            </div>
+            <p class="variable-desc">
+              Average clock cycles required per instruction. Depends on CPU microarchitecture, pipeline design, cache hierarchy, and instruction mix.
+            </p>
+          </div>
+
+          <div class="variable-card">
+            <div class="variable-header">
+              <span class="variable-badge">f</span>
+              <h3 class="variable-name">Clock Rate</h3>
+            </div>
+            <p class="variable-desc">
+              Processor frequency in cycles per second (Hz). Determined by semiconductor technology, transistor design, and CPU voltage/cooling constraints.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Computer Organization and Architecture (COA) Mini Project &bull; Educational CPU Performance Tool</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

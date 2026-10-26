@@ -1,0 +1,10 @@
+# Vercel deployment folder
+.vercel/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies (if any added in future)
+node_modules/
